@@ -1,0 +1,11 @@
+# Simulation outputs
+sim/*.vcd
+sim/*_tb
+
+# Icarus
+*.vvp
+*.vcd
+
+# GTKWave
+*.gtkw
+*.sav
