@@ -2,49 +2,46 @@
 
 module tb_pattern_gen;
 
-reg [9:0] pixel_x;
-reg [9:0] pixel_y;
-reg active_video;
+    reg [9:0] pixel_x;
+    reg [9:0] pixel_y;
+    reg       active_video;
 
-wire [3:0] red;
-wire [3:0] green;
-wire [3:0] blue;
+    reg [9:0] square_x;
+    reg [9:0] square_y;
 
-pattern_gen dut (
-    .pixel_x(pixel_x),
-    .pixel_y(pixel_y),
-    .active_video(active_video),
-    .red(red),
-    .green(green),
-    .blue(blue)
-);
+    wire [3:0] red;
+    wire [3:0] green;
+    wire [3:0] blue;
 
-initial begin
+    pattern_gen dut (
+        .pixel_x(pixel_x),
+        .pixel_y(pixel_y),
+        .active_video(active_video),
+        .square_x(square_x),
+        .square_y(square_y),
+        .red(red),
+        .green(green),
+        .blue(blue)
+    );
 
-    $dumpfile("sim/pattern_gen.vcd");
-    $dumpvars(0,tb_pattern_gen);
+    initial begin
+        $dumpfile("sim/pattern_gen.vcd");
+        $dumpvars(0, tb_pattern_gen);
 
-    active_video = 1;
+        active_video = 1;
+        square_x = 100;
+        square_y = 100;
 
-    pixel_x = 50;
-    #10;
+        pixel_x = 110; pixel_y = 110; #10; // inside square
+        pixel_x = 90;  pixel_y = 110; #10; // left of square
+        pixel_x = 110; pixel_y = 90;  #10; // above square
+        pixel_x = 139; pixel_y = 139; #10; // inside square edge
+        pixel_x = 140; pixel_y = 140; #10; // outside square
 
-    pixel_x = 120;
-    #10;
+        active_video = 0;
+        pixel_x = 110; pixel_y = 110; #10; // blanking
 
-    pixel_x = 220;
-    #10;
-
-    pixel_x = 350;
-    #10;
-
-    pixel_x = 500;
-    #10;
-
-    active_video = 0;
-    #10;
-
-    $finish;
-end
+        $finish;
+    end
 
 endmodule
