@@ -2,39 +2,38 @@
 
 module tb_square_anim;
 
-reg clk = 0;
-reg rst = 1;
-reg frame_tick = 0;
+    reg clk = 0;
+    reg rst = 1;
+    reg frame_tick = 0;
 
-wire [9:0] square_x;
-wire [9:0] square_y;
+    wire [9:0] square_x;
+    wire [9:0] square_y;
 
-square_anim dut (
-    .clk(clk),
-    .rst(rst),
-    .frame_tick(frame_tick),
-    .square_x(square_x),
-    .square_y(square_y)
-);
+    square_anim dut (
+        .clk        (clk),
+        .rst        (rst),
+        .frame_tick (frame_tick),
+        .square_x   (square_x),
+        .square_y   (square_y)
+    );
 
-always #5 clk = ~clk;
+    always #5 clk = ~clk; // 100 MHz
 
-initial begin
+    initial begin
+        $dumpfile("sim/square_anim.vcd");
+        $dumpvars(0, tb_square_anim);
 
-    $dumpfile("sim/square_anim.vcd");
-    $dumpvars(0,tb_square_anim);
+        #20;
+        rst = 0;
 
-    #20;
-    rst = 0;
+        // Ten one-cycle frame ticks: square_x should step 100 -> 110
+        repeat (10) begin
+            #20 frame_tick = 1;
+            #10 frame_tick = 0;
+        end
 
-    repeat(10) begin
-        #20 frame_tick = 1;
-        #10 frame_tick = 0;
+        #100;
+        $finish;
     end
-
-    #100;
-    $finish;
-
-end
 
 endmodule

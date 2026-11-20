@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
 
+// 640x480 @ 60 Hz VGA timing from a 25 MHz pixel clock (800 x 525 counts).
+// hsync and vsync are active-low.
 module vga_timing (
     input  wire       clk_pix,
     input  wire       rst,

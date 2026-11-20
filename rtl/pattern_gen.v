@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
 
+// Colours each pixel: white inside the 40x40 square, dark blue elsewhere,
+// black during blanking.
 module pattern_gen (
     input wire [9:0] pixel_x,
     input wire [9:0] pixel_y,
