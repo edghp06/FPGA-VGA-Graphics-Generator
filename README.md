@@ -2,12 +2,13 @@
 
 A compact FPGA project that generates a 640x480 VGA signal using Verilog RTL on the Tang Nano 4K.
 
-The design draws a white 40×40 square that moves across a dark blue background, generated entirely in FPGA logic. It is designed as a learning-focused Year in Industry CV project covering VGA timing, counters, RTL design and simulation.
+The design draws a white 40×40 square that moves across a dark blue background, generated entirely in FPGA logic. It is designed as a learning-focused Year in Industry CV project covering VGA timing, counters, RTL design, simulation and FPGA implementation.
 
 ## Status
 
 - Every module is verified in simulation with Icarus Verilog and GTKWave.
-- Not yet run on hardware. That needs a Gowin PLL to make the 25.2 MHz pixel clock from the board's 27 MHz crystal, and a pin constraints file.
+- The design has been built in Gowin EDA and programmed onto the Tang Nano 4K, but not yet connected to a monitor.
+- Next step for a picture on screen: `top` uses `clk` directly as the pixel clock, so on the board it runs at the 27 MHz crystal frequency (about 64 Hz refresh). A Gowin PLL generating about 25.2 MHz would give standard 60 Hz timing.
 - Reset (`rst`) is active-high.
 
 ## Project Goals
